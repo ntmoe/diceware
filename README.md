@@ -13,7 +13,7 @@ How to use
 
 2. Run the program:
 
-        $ ./diceware -w n
+        $ ./diceware n
 
     where `n` is the number of words you want in your passphrase. The passphrase is printed to the terminal.
 

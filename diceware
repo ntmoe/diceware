@@ -2,14 +2,16 @@
 import urllib
 import httplib
 import pickle
-import argparse
+#import argparse
+import sys
 import random
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-w", "--words", type=int, help="number of words to print")
+#parser = argparse.ArgumentParser()
+#parser.add_argument("-w", "--words", type=int, help="number of words to print")
 
-args = parser.parse_args()
-words = args.words
+#args = parser.parse_args()
+#words = args.words
+words = int(sys.argv[1])
 
 num = words * 5
 
