@@ -1,7 +1,8 @@
 Diceware
 ========
 
-This is a Python implementation of the [Diceware](http://world.std.com/~reinhold/diceware.html) pasword-generating algorithm.
+This is a Python implementation of the [Diceware](http://world.std.com/~reinhold/diceware.html) pasword-generating algorithm. It uses uses `/dev/urandom` or
+equivalent using calls within Python's `random` module.
 
 How to use
 ----------
