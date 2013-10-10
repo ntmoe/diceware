@@ -15,7 +15,8 @@ How to use
 
         $ ./diceware n
 
-    where `n` is the number of words you want in your passphrase. The passphrase is printed to the terminal.
+    where `n` is the number of words you want in your passphrase. It
+should be a positive integer. The passphrase is printed to the terminal.
 
 Caveats
 -------
