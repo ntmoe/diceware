@@ -1,0 +1,55 @@
+#!/usr/bin/python
+import urllib
+import httplib
+import pickle
+import argparse
+import random
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-w", "--words", type=int, help="number of words to print")
+
+args = parser.parse_args()
+words = args.words
+
+num = words * 5
+
+# parameterDict = {'num': 35, 'min':1, 'max':6, 'col': 5, 'base':10,
+#     'format': 'plain', 'rnd':'new' }
+# params = urllib.urlencode(parameterDict)
+# conn = httplib.HTTPSConnection("www.random.org")
+# conn.set_debuglevel(0)
+# conn.request("GET", "/integers/?" + params)
+# response = conn.getresponse()
+# rolls = response.read()
+
+r = random.SystemRandom()
+# Create words number of 5-digit random dice rolls
+# For example, if words = 5:
+# [56551,
+# 45562,
+# 22643,
+# 43322,
+# 22364]
+rolls = [''.join([str(r.randint(1,6)) for n in range(5)]) for n in range(words)]
+
+f = open('dicewarePickle.txt', 'r')
+
+rolldict = pickle.load(f)
+
+f.close
+
+passphrase_length = 0
+
+for roll in rolls:
+	word = rolldict[roll]
+	passphrase_length += len(word)
+	print roll + '\t' + word
+
+print '\nTotal characters:', passphrase_length
+
+# write over the results in memory to prevent future discovery
+rolls = ''.join([str(r.randint(1,6)) for n in range(num)])
+
+
+
+
