@@ -6,7 +6,7 @@ import argparse
 import random
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-w", "--words", type=int, help="number of words to print")
+parser.add_argument("-w", "--words", type=int, required=True, help="number of words to print")
 
 args = parser.parse_args()
 words = args.words
