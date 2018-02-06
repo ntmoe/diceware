@@ -4,12 +4,15 @@ import httplib
 import pickle
 import argparse
 import random
+import re
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-w", "--words", type=int, help="number of words to print")
+parser.add_argument("-s", "--salt", action='store_true', help="Salt the passphrase")
 
 args = parser.parse_args()
 words = args.words
+salt = args.salt
 
 num = words * 5
 
@@ -30,6 +33,8 @@ r = random.SystemRandom()
 # 22643,
 # 43322,
 # 22364]
+chars = '@$%^&*{[}]+_-<>,.;:'
+
 rolls = [''.join([str(r.randint(1,6)) for n in range(5)]) for n in range(words)]
 
 f = open('dicewarePickle.txt', 'r')
@@ -40,16 +45,37 @@ f.close
 
 passphrase_length = 0
 
-for roll in rolls:
-	word = rolldict[roll]
-	passphrase_length += len(word)
-	print roll + '\t' + word
+words = []
 
-print '\nTotal characters:', passphrase_length
+for roll in rolls:
+    word = rolldict[roll]
+    words.append(word)
+
+# Apply salt
+if salt:
+    for i, w in enumerate(words):
+        if w[0].isalpha():
+            words[i] = w.capitalize()
+            break
+
+    rolls.append("SALT:")
+    words.append("{0:02}".format(r.randint(0,99)) + chars[r.randint(0,len(chars)-1)])
+
+for roll,word in zip(rolls,words):
+    print roll + '\t' + word
+
+words = ''.join(words)
+
+print '\nTotal characters:', len(words)
+
+print '\nAs one word:'
+print words
 
 # write over the results in memory to prevent future discovery
-rolls = ''.join([str(r.randint(1,6)) for n in range(num)])
-
+# But according to http://stackoverflow.com/questions/728164/securely-erasing-password-in-memory-python
+# this is useless
+# rolls = ''.join([str(r.randint(1,6)) for n in range(num)])
+# words = ''.join([str(r.randint(1,6)) for n in range(num)])
 
 
 
