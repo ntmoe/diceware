@@ -15,7 +15,7 @@ How to use
 
         $ ./diceware -w n
 
-    where `n` is the number of words you want in your passphrase. The passphrase is printed to the terminal.
+    where `n` is the number of words you want in your passphrase. The passphrase is printed to the terminal. The `-w` flag is mandatory, but you may also add `-s` to add a few random numbers and a random special character to the end of the passphrase in order to satisfy password complexity requirements.
 
 Caveats
 -------
