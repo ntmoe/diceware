@@ -1,18 +1,21 @@
-#!/usr/bin/python
+#!/usr/local/opt/python/libexec/bin/python
 import urllib
-import httplib
+#import httplib
 import pickle
 import argparse
 import random
 import re
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-w", "--words", type=int, help="number of words to print")
+parser.add_argument("-w", "--words", type=int, help="Number of words to print")
 parser.add_argument("-s", "--salt", action='store_true', help="Salt the passphrase")
+parser.add_argument("-l", "--list", default="e", help="Choose which wordlist to \
+        use. o = original list, e = EFF large wordlist Default is EFF large wordlist.")
 
 args = parser.parse_args()
 words = args.words
 salt = args.salt
+wordlist = args.list
 
 num = words * 5
 
@@ -37,7 +40,10 @@ chars = '@$%^&*{[}]+_-<>,.;:'
 
 rolls = [''.join([str(r.randint(1,6)) for n in range(5)]) for n in range(words)]
 
-f = open('dicewarePickle.txt', 'r')
+if wordlist == "e":
+    f = open('eff_large_wordlist.pickle', 'rb')
+elif wordlist == "o":
+    f = open('original_wordlist.pickle', 'rb')
 
 rolldict = pickle.load(f)
 
@@ -62,14 +68,14 @@ if salt:
     words.append("{0:02}".format(r.randint(0,99)) + chars[r.randint(0,len(chars)-1)])
 
 for roll,word in zip(rolls,words):
-    print roll + '\t' + word
+    print(roll + '\t' + word)
 
 words = ''.join(words)
 
-print '\nTotal characters:', len(words)
+print('\nTotal characters:', len(words))
 
-print '\nAs one word:'
-print words
+print('\nAs one word:')
+print(words)
 
 # write over the results in memory to prevent future discovery
 # But according to http://stackoverflow.com/questions/728164/securely-erasing-password-in-memory-python

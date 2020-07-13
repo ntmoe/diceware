@@ -1,6 +1,7 @@
 import pickle
 
-f = open('diceware.txt', 'r')
+#f = open('eff_large_wordlist.txt', 'r')
+f = open('original_wordlist.txt', 'r')
 
 rolldict = {}
 
@@ -12,7 +13,7 @@ for line in f:
 
 f.close
 
-g = open('dicewarePickle.txt', 'w')
+g = open('dicewarePickle.txt', 'wb')
 
 pickle.dump(rolldict, g)
 
