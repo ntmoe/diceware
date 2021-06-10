@@ -5,6 +5,7 @@ import pickle
 import argparse
 import random
 import re
+import os
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-w", "--words", type=int, help="Number of words to print")
@@ -40,10 +41,14 @@ chars = '@$%^&*{[}]+_-<>,.;:'
 
 rolls = [''.join([str(r.randint(1,6)) for n in range(5)]) for n in range(words)]
 
+script_path = os.path.realpath(__file__)
+
+script_dir = os.path.dirname(__file__)
+
 if wordlist == "e":
-    f = open('eff_large_wordlist.pickle', 'rb')
+    f = open(os.path.join(script_dir,'eff_large_wordlist.pickle'), 'rb')
 elif wordlist == "o":
-    f = open('original_wordlist.pickle', 'rb')
+    f = open(os.path.join(script_dir,'original_wordlist.pickle'), 'rb')
 
 rolldict = pickle.load(f)
 
