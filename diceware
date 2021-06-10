@@ -43,7 +43,7 @@ rolls = [''.join([str(r.randint(1,6)) for n in range(5)]) for n in range(words)]
 
 script_path = os.path.realpath(__file__)
 
-script_dir = os.path.dirname(__file__)
+script_dir = os.path.dirname(os.path.realpath(__file__))
 
 if wordlist == "e":
     f = open(os.path.join(script_dir,'eff_large_wordlist.pickle'), 'rb')
